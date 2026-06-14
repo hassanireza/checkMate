@@ -1,135 +1,158 @@
 # ♛ CHECKMATE
 
-> History's greatest moves. Solved by you.
+> *History's greatest moves. Solved by you.*
 
 ![CHECKMATE Screenshot](./assets/checkmate.png)
 
 ---
 
-## ♟️ Overview
+## Overview
 
-**CHECKMATE** has evolved from a focused chess puzzle experience into a **complete chess platform** featuring:
+**CHECKMATE** is a complete browser-based chess platform built entirely with vanilla HTML, CSS, and JavaScript — no frameworks, no dependencies. It ships two distinct modes in one unified, dark-themed interface: a full chess game against an AI opponent, and a curated puzzle suite drawn from the most celebrated moments in competitive chess history.
 
-* 🧠 A full chess game with AI opponent
-* 🧩 A dedicated puzzle mode inspired by historic matches
-
-Originally built to highlight the most iconic moments in chess history, the project now offers both **strategic gameplay** and **tactical challenges** in one unified experience.
-
-Whether you want to play a full match or solve brilliant combinations, CHECKMATE delivers both.
+The design language is editorial and premium — deep space indigo boards, gold accents, Staunton-style SVG pieces, and glassmorphic UI panels — built to feel like a purpose-made product rather than a side project.
 
 ---
 
-## 🚀 Features
+## Game Modes
 
-### ♜ Full Chess Game (NEW)
+### ♛ Play Chess — vs. AI
 
-* Play complete chess matches against an AI opponent
-* Legal move generation and validation
-* Turn-based gameplay with game state tracking
-* Check, checkmate, and draw detection
-* Clean and responsive chessboard UI
+A complete, rules-accurate chess implementation with a built-in minimax engine.
 
-### 🧩 Puzzle Mode
+**Three difficulty tiers:**
 
-* Curated historical chess puzzles
-* Progressive difficulty system
-* Interactive move validation
-* Context-aware hint system
-* Score, streak, and progress tracking
+| Tier | Name | Engine Depth | Character |
+|---|---|---|---|
+| ♙ | Novice | Depth 1–2 | Random-weighted moves, basic tactics — good for beginners |
+| ♘ | Knight | Depth 3–4 | Applies positional strategy, controls centre, defends actively |
+| ♛ | Grandmaster | Depth 4+ | Alpha-beta pruning with piece-square evaluation — a real fight |
 
-### 🎨 General Features
-
-* Fully responsive design (desktop and mobile)
-* Smooth UI interactions and animations
-* Minimal, distraction-free interface
-* Lightweight and fast performance
-
----
-
-## 🎯 Game Modes
-
-| Mode           | Description                                        |
-| -------------- | -------------------------------------------------- |
-| ♜ Play vs AI   | Engage in a full chess match against the computer  |
-| 🧩 Puzzle Mode | Solve famous tactical positions from chess history |
+**Full chess rules implemented:**
+- Legal move generation with check detection
+- En passant, castling (kingside and queenside), pawn promotion
+- Check, checkmate, stalemate, and insufficient material draw
+- Undo last move
+- Captured pieces display with material advantage score
+- Live evaluation bar (engine score in pawns)
+- Algebraic notation move history
+- Resign at any time
 
 ---
 
-## 🎨 Design Direction
+### ♞ Puzzle Quest — Historical Positions
 
-CHECKMATE blends classical chess heritage with modern digital design.
+Twelve hand-picked tactical puzzles from legendary games, spanning 150 years of competitive chess. Each puzzle presents a real board position from a famous match — your task is to find the winning continuation that the master played.
 
-* Inspired by historical chess literature and tournament archives
-* Clean typography and editorial-style layouts
-* Focus on clarity, immersion, and strategic thinking
+| # | Player | Game | Year | Difficulty |
+|---|---|---|---|---|
+| 01 | Paul Morphy | Opera Game | 1858 | Novice |
+| 02 | Adolf Anderssen | The Immortal Game | 1851 | Novice |
+| 03 | Anatoly Karpov | vs. Spassky | 1974 | Novice |
+| 04 | Robert James Fischer | Game of the Century | 1956 | Knight |
+| 05 | Garry Kasparov | vs. Topalov | 1999 | Knight |
+| 06 | Mikhail Tal | vs. Botvinnik | 1960 | Knight |
+| 07 | Boris Spassky | vs. Bronstein | 1960 | Knight |
+| 08 | Magnus Carlsen | vs. Morozevich | 2008 | Grandmaster |
+| 09 | Wilhelm Steinitz | vs. Bardeleben | 1895 | Grandmaster |
+| 10 | Viswanathan Anand | vs. Gelfand, World Championship | 2012 | Grandmaster |
+| 11 | Alexander Alekhine | vs. Nimzowitsch | 1930 | Grandmaster |
+| 12 | Efim Bogoljubov | vs. Alekhine | 1922 | Grandmaster |
 
-The experience is designed to feel premium, minimal, and purposeful.
-
----
-
-## ⚙️ Technical Overview
-
-Built using:
-
-* HTML5
-* CSS3
-* Vanilla JavaScript
-
-### Core Systems
-
-* Chess Engine (AI plus move generation)
-* Puzzle Engine
-* Move Validation Logic
-* Game State Management
-* Hint System
-* Score Tracking
-* Responsive UI Architecture
-
-No external frameworks were used, ensuring:
-
-* High performance
-* Maintainability
-* Lightweight delivery
+**Puzzle features:**
+- Context card per puzzle: player name, game title, year, and description
+- One-tap hint system with targeted clues
+- Move validation — wrong moves are rejected in real time
+- Score and streak tracking across the session
+- Puzzle completion summary with total points
 
 ---
 
-## 🧠 Project Goals
+## Design System
 
-### Game Design
+The visual language is built on a strict colour-wheel palette. Every interactive state derives from two base hues rather than arbitrary one-off colours.
 
-To combine tactical puzzle-solving with complete strategic gameplay in a single cohesive experience.
+**Palette:**
 
-### Design
+| Role | Value | Hue |
+|---|---|---|
+| Board dark square | `#3e4470` | 240° indigo-violet |
+| Board light square | `#c9cce8` | 240° lavender |
+| UI chrome / backgrounds | `#07080f` → `#22264a` | 240° deep space |
+| Gold accent | `#c9a84c` | 38° amber — split-complementary |
+| Success / correct | `#5ec9a8` | 160° teal — triadic third vertex |
+| Check state | `rgba(200,60,80)` | 350° warm crimson — urgency without palette clash |
+| Last-move highlight | `rgba(201,168,76,.28)` | Gold overlay — visible on both square tones |
+| Move dots / capture rings | Gold `rgba(201,168,76,.88)` | Consistent with accent language |
 
-To elevate chess interfaces using editorial aesthetics, visual hierarchy, and modern UI principles.
-
-### Development
-
-To demonstrate how a fully functional chess platform can be built using pure frontend technologies.
-
----
-
-## 🔮 Future Roadmap
-
-* Stronger AI difficulty levels
-* Online multiplayer mode
-* Daily puzzles and challenges
-* Achievement system
-* Game history and analysis
-* PGN import and export support
-* Global leaderboards
+**Pieces:** Custom SVG Staunton set. All twelve pieces (six white, six black) share a unified design system: `stroke-width 1.5` throughout, matching gradient fills (ivory-to-lavender for white, indigo-to-near-black for black), and a redrawn knight with proper horse-head silhouette — forehead dome, snout, jaw curve, and anatomically placed eye.
 
 ---
 
-## ♟️ Philosophy
+## Technical Architecture
 
-> “Chess is the struggle against error.”
->
-> Johannes Zukertort
+**Language:** Vanilla JavaScript (ES2020), no build step required. Open `index.html` in any modern browser.
 
-CHECKMATE embraces both sides of chess:
+**File structure:**
 
-* The precision of calculation
-* The beauty of decisive moments
+```
+index.html          — All screens and UI markup
+style.css           — Complete design system (950 lines, CSS custom properties throughout)
+game.js             — UI controller, rendering, puzzle engine, event handling
+chess-engine.js     — Self-contained chess engine: move generation, AI, evaluation
+```
 
-Now, you can experience both.
+**Engine internals (`chess-engine.js`):**
+
+The chess engine is a fully self-contained class (`ChessEngine`) with no external dependencies.
+
+- Board represented as an 8×8 JavaScript array of piece objects
+- Pseudo-legal move generation with sliding piece ray casting
+- Full legality filter via temporary-apply/undo check detection
+- En passant, castling rights, and promotion handled in move generation and make/unmake
+- Minimax search with alpha-beta pruning (depth scales with difficulty)
+- Static evaluation: material values + piece-square tables for all six piece types
+- Incremental undo stack — full state snapshot per move, O(1) restore
+- Algebraic notation generation including `+` and `#` suffixes
+
+**No external libraries.** No jQuery, no chess.js, no React. Every system — move generation, AI search, UI rendering, puzzle validation, scoring — is written from scratch in the codebase.
+
+---
+
+## Running the Game
+
+No installation, no server, no build step.
+
+```bash
+git clone https://github.com/your-username/checkmate.git
+cd checkmate
+open index.html        # macOS
+# or
+start index.html       # Windows
+# or just drag index.html into any browser
+```
+
+Tested in Chrome 120+, Firefox 121+, Safari 17+, Edge 120+.
+
+---
+
+## Roadmap
+
+- Deeper AI search with iterative deepening and move ordering
+- Opening book for the first 8–10 moves
+- Online multiplayer via WebSockets
+- Daily puzzle feed
+- PGN import and game replay
+- Achievement system and persistent statistics
+- Global leaderboard
+
+---
+
+## Philosophy
+
+> *"Chess is the struggle against error."*
+> — Johannes Zukertort
+
+CHECKMATE is built on the belief that chess software should feel as considered as the game itself. Every colour choice, every SVG anchor point, every AI decision is deliberate. The history encoded in these puzzles deserves a worthy frame.
+
+Play a match. Solve a legend. Find the move.
