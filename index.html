@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
-<title>CHECKMATE — Chess Puzzle</title>
+<title>CHECKMATE — Chess & Puzzles</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -12,11 +12,20 @@
 <body>
 
 <div class="noise"></div>
+<div class="ambient-light"></div>
 
 <div class="app" id="app">
 
+  <!-- ══════════════════════════════════════════
+       SCREEN: INTRO / HOME
+  ══════════════════════════════════════════ -->
   <div class="screen screen-intro" id="screenIntro">
     <div class="intro-bg-grid"></div>
+    <div class="intro-orbs" aria-hidden="true">
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="orb orb3"></div>
+    </div>
     <div class="intro-pieces" aria-hidden="true">
       <span class="float-piece p1">♛</span>
       <span class="float-piece p2">♞</span>
@@ -27,16 +36,29 @@
     <div class="intro-content">
       <div class="intro-eyebrow">The Grand Masters Collection</div>
       <h1 class="intro-title">Check<em>mate</em></h1>
-      <p class="intro-sub">Legendary endgames. Solved in three moves.</p>
+      <p class="intro-sub">Play chess against AI · Solve legendary puzzles</p>
       <div class="intro-meta">
+        <span class="meta-pill">AI Opponent</span>
+        <span class="meta-dot"></span>
         <span class="meta-pill">24 Puzzles</span>
         <span class="meta-dot"></span>
-        <span class="meta-pill">Historical Games</span>
-        <span class="meta-dot"></span>
-        <span class="meta-pill">3 Moves to Win</span>
+        <span class="meta-pill">3 Difficulties</span>
       </div>
-      <button class="btn-start" id="btnStart">Begin Playing</button>
-      <div class="intro-scroll-hint">↓ scroll through history</div>
+
+      <div class="mode-cards">
+        <button class="mode-card mode-card-main" id="btnPlayChess">
+          <div class="mode-card-icon">♛</div>
+          <div class="mode-card-label">Play Chess</div>
+          <div class="mode-card-sub">vs. AI · 3 difficulty levels</div>
+          <div class="mode-card-arrow">→</div>
+        </button>
+        <button class="mode-card mode-card-side" id="btnPlayPuzzles">
+          <div class="mode-card-icon">♞</div>
+          <div class="mode-card-label">Puzzle Quest</div>
+          <div class="mode-card-sub">24 historical checkmates</div>
+          <div class="mode-card-arrow">→</div>
+        </button>
+      </div>
     </div>
     <div class="intro-ticker" aria-hidden="true">
       <div class="ticker-track">
@@ -54,10 +76,127 @@
     </div>
   </div>
 
-  <div class="screen screen-game hidden" id="screenGame">
+  <!-- ══════════════════════════════════════════
+       SCREEN: DIFFICULTY SELECT
+  ══════════════════════════════════════════ -->
+  <div class="screen screen-difficulty hidden" id="screenDifficulty">
+    <div class="diff-bg"></div>
+    <div class="diff-content">
+      <button class="btn-back" id="btnDiffBack">← Back</button>
+      <div class="diff-eyebrow">Choose Your Challenge</div>
+      <h2 class="diff-title">Select Difficulty</h2>
+      <p class="diff-sub">The AI adapts its strategy to match your level</p>
 
+      <div class="diff-cards">
+        <button class="diff-card diff-easy" data-diff="easy">
+          <div class="diff-card-glyph">♙</div>
+          <div class="diff-card-name">Novice</div>
+          <div class="diff-card-desc">Random moves with basic tactics. Perfect for beginners learning the game.</div>
+          <div class="diff-card-badge">Depth 1–2</div>
+        </button>
+        <button class="diff-card diff-medium" data-diff="medium">
+          <div class="diff-card-glyph">♘</div>
+          <div class="diff-card-name">Knight</div>
+          <div class="diff-card-desc">Applies positional strategy, controls center, protects pieces. A solid challenge.</div>
+          <div class="diff-card-badge">Depth 3–4</div>
+        </button>
+        <button class="diff-card diff-hard" data-diff="hard">
+          <div class="diff-card-glyph">♛</div>
+          <div class="diff-card-name">Grandmaster</div>
+          <div class="diff-card-desc">Deep minimax with alpha-beta pruning. Plays like a seasoned tournament player.</div>
+          <div class="diff-card-badge">Depth 5+</div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCREEN: CHESS GAME vs AI
+  ══════════════════════════════════════════ -->
+  <div class="screen screen-chess hidden" id="screenChess">
     <header class="hdr">
-      <div class="hdr-brand" id="btnBackHome">CHECK<em>MATE</em></div>
+      <div class="hdr-brand" id="btnChessHome">CHECK<em>MATE</em></div>
+      <div class="hdr-center">
+        <div class="hdr-mode-badge" id="chessDiffBadge">Novice</div>
+        <div class="hdr-status" id="chessStatus">Your Turn · White</div>
+      </div>
+      <div class="hdr-actions">
+        <button class="hdr-btn" id="btnChessPuzzles" title="Puzzle Quest">♞</button>
+        <button class="hdr-btn" id="btnChessNewGame" title="New Game">↺</button>
+      </div>
+    </header>
+
+    <main class="chess-main">
+      <div class="chess-sidebar chess-sidebar-left">
+        <div class="player-card player-card-ai">
+          <div class="player-avatar player-avatar-ai">♚</div>
+          <div class="player-info">
+            <div class="player-name">AI</div>
+            <div class="player-color-badge black-badge">Black</div>
+          </div>
+          <div class="captured-pieces" id="capturedByAI"></div>
+          <div class="player-score" id="aiScore">0</div>
+        </div>
+
+        <div class="eval-bar-wrap">
+          <div class="eval-bar" id="evalBar">
+            <div class="eval-fill" id="evalFill"></div>
+          </div>
+          <div class="eval-label" id="evalLabel">0.0</div>
+        </div>
+
+        <div class="player-card player-card-human">
+          <div class="player-avatar player-avatar-human">♔</div>
+          <div class="player-info">
+            <div class="player-name">You</div>
+            <div class="player-color-badge white-badge">White</div>
+          </div>
+          <div class="captured-pieces" id="capturedByHuman"></div>
+          <div class="player-score" id="humanScore">0</div>
+        </div>
+      </div>
+
+      <div class="board-col">
+        <div class="board-frame">
+          <div class="board-labels-rank" id="chessRankLabels"></div>
+          <div class="board-labels-file" id="chessFileLabels"></div>
+          <div class="board-wrap">
+            <div class="board" id="chessBoard"></div>
+          </div>
+        </div>
+        <div class="board-footer">
+          <div class="thinking-indicator hidden" id="thinkingIndicator">
+            <div class="thinking-dots"><span></span><span></span><span></span></div>
+            AI thinking…
+          </div>
+        </div>
+      </div>
+
+      <div class="chess-sidebar chess-sidebar-right">
+        <div class="move-list-wrap">
+          <div class="move-list-header">Move History</div>
+          <div class="move-list" id="chessMoveList"></div>
+        </div>
+
+        <div class="chess-actions">
+          <button class="btn-chess-action" id="btnUndoMove">↩ Undo</button>
+          <button class="btn-chess-action btn-chess-resign" id="btnResign">⚐ Resign</button>
+        </div>
+
+        <div class="chess-hints-wrap">
+          <div class="chess-hint-label">Tips</div>
+          <div class="chess-hint-text" id="chessHintText">Click a piece to see valid moves. Control the center early.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCREEN: PUZZLE MODE
+  ══════════════════════════════════════════ -->
+  <div class="screen screen-game hidden" id="screenGame">
+    <header class="hdr">
+      <div class="hdr-brand" id="btnPuzzleHome">CHECK<em>MATE</em></div>
       <div class="hdr-center">
         <div class="hdr-puzzle-num" id="hdrNum">01</div>
         <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
@@ -69,7 +208,6 @@
     </header>
 
     <main class="game-main">
-
       <div class="board-col">
         <div class="board-frame">
           <div class="board-labels-rank" id="rankLabels"></div>
@@ -85,6 +223,7 @@
       </div>
 
       <div class="info-col">
+        <button class="btn-back-chess" id="btnBackToChess">← Play Chess</button>
         <div class="game-badge" id="gameBadge">Easy</div>
         <div class="puzzle-year" id="puzzleYear">1858</div>
         <h2 class="puzzle-title" id="puzzleTitle">Paul Morphy</h2>
@@ -100,7 +239,7 @@
 
         <div class="action-row">
           <button class="btn-ghost" id="btnReset">Reset</button>
-          <button class="btn-next hidden" id="btnNext">Next Puzzle →</button>
+          <button class="btn-next hidden" id="btnNext">Next →</button>
         </div>
 
         <div class="feedback" id="feedback"></div>
@@ -113,11 +252,28 @@
           <div class="stat-item"><span class="stat-n" id="statBest">—</span><span class="stat-l">Best</span></div>
         </div>
       </div>
-
     </main>
-
   </div>
 
+  <!-- ══════════════════════════════════════════
+       SCREEN: GAME OVER (Chess)
+  ══════════════════════════════════════════ -->
+  <div class="screen screen-gameover hidden" id="screenGameover">
+    <div class="gameover-content">
+      <div class="gameover-glyph" id="gameoverGlyph">♛</div>
+      <div class="gameover-label" id="gameoverLabel">Checkmate!</div>
+      <h2 class="gameover-title" id="gameoverTitle">You Win</h2>
+      <div class="gameover-moves" id="gameoverMoves">42 moves played</div>
+      <div class="gameover-btns">
+        <button class="btn-start" id="btnGameoverNewGame">Play Again</button>
+        <button class="btn-ghost-light" id="btnGameoverHome">Home</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCREEN: PUZZLE WIN
+  ══════════════════════════════════════════ -->
   <div class="screen screen-win hidden" id="screenWin">
     <div class="win-content">
       <div class="win-crown">♛</div>
@@ -131,8 +287,19 @@
     </div>
   </div>
 
+  <!-- Promotion modal -->
+  <div class="modal-overlay hidden" id="promotionModal">
+    <div class="modal-box">
+      <div class="modal-title">Pawn Promotion</div>
+      <div class="modal-sub">Choose your piece</div>
+      <div class="promo-choices" id="promoChoices"></div>
+    </div>
+  </div>
+
 </div>
 
+<script src="chess-engine.js"></script>
 <script src="game.js"></script>
+
 </body>
 </html>
