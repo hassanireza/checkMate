@@ -2,6 +2,8 @@
 
 > *History's greatest moves. Solved by you.*
 
+> History's greatest moves. Solved by you.
+> 
 ![CHECKMATE Screenshot](./assets/checkmate.png)
 
 ## Overview
