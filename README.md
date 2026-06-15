@@ -4,19 +4,17 @@
 
 ![CHECKMATE Screenshot](./assets/checkmate.png)
 
----
-
 ## Overview
 
-**CHECKMATE** is a complete browser-based chess platform built entirely with vanilla HTML, CSS, and JavaScript — no frameworks, no dependencies. It ships two distinct modes in one unified, dark-themed interface: a full chess game against an AI opponent, and a curated puzzle suite drawn from the most celebrated moments in competitive chess history.
+**CHECKMATE** is a complete browser-based chess platform built entirely with vanilla HTML, CSS, and JavaScript. No frameworks, no dependencies, no build step. It ships two distinct modes in one unified dark-themed interface: a full chess game against an AI opponent, and a curated puzzle suite drawn from the most celebrated moments in competitive chess history.
 
-The design language is editorial and premium — deep space indigo boards, gold accents, Staunton-style SVG pieces, and glassmorphic UI panels — built to feel like a purpose-made product rather than a side project.
+The design language is editorial and premium. Deep space indigo boards, gold accents, custom Staunton SVG pieces, and glassmorphic UI panels, built to feel like a purpose-made product rather than a weekend project.
 
 ---
 
 ## Game Modes
 
-### ♛ Play Chess — vs. AI
+### ♛ Play Chess vs. AI
 
 A complete, rules-accurate chess implementation with a built-in minimax engine.
 
@@ -24,25 +22,26 @@ A complete, rules-accurate chess implementation with a built-in minimax engine.
 
 | Tier | Name | Engine Depth | Character |
 |---|---|---|---|
-| ♙ | Novice | Depth 1–2 | Random-weighted moves, basic tactics — good for beginners |
-| ♘ | Knight | Depth 3–4 | Applies positional strategy, controls centre, defends actively |
-| ♛ | Grandmaster | Depth 4+ | Alpha-beta pruning with piece-square evaluation — a real fight |
+| ♙ | Novice | Depth 1-2 | Random-weighted moves with basic tactics, good for beginners |
+| ♘ | Knight | Depth 3-4 | Applies positional strategy, controls the centre, defends actively |
+| ♛ | Grandmaster | Depth 4+ | Alpha-beta pruning with piece-square evaluation, a real fight |
 
 **Full chess rules implemented:**
+
 - Legal move generation with check detection
-- En passant, castling (kingside and queenside), pawn promotion
+- En passant, castling (kingside and queenside), and pawn promotion
 - Check, checkmate, stalemate, and insufficient material draw
 - Undo last move
-- Captured pieces display with material advantage score
-- Live evaluation bar (engine score in pawns)
+- Captured pieces display with live material advantage score
+- Evaluation bar showing engine score in pawns
 - Algebraic notation move history
 - Resign at any time
 
 ---
 
-### ♞ Puzzle Quest — Historical Positions
+### ♞ Puzzle Quest
 
-Twelve hand-picked tactical puzzles from legendary games, spanning 150 years of competitive chess. Each puzzle presents a real board position from a famous match — your task is to find the winning continuation that the master played.
+Twelve hand-picked tactical puzzles from legendary games, spanning 150 years of competitive chess. Each puzzle presents a real board position from a famous match. Your task is to find the winning continuation the master played.
 
 | # | Player | Game | Year | Difficulty |
 |---|---|---|---|---|
@@ -60,66 +59,67 @@ Twelve hand-picked tactical puzzles from legendary games, spanning 150 years of 
 | 12 | Efim Bogoljubov | vs. Alekhine | 1922 | Grandmaster |
 
 **Puzzle features:**
+
 - Context card per puzzle: player name, game title, year, and description
-- One-tap hint system with targeted clues
-- Move validation — wrong moves are rejected in real time
-- Score and streak tracking across the session
-- Puzzle completion summary with total points
+- Hint system with targeted per-puzzle clues
+- Real-time move validation with immediate feedback on wrong moves
+- Score and streak tracking across the full session
+- Completion summary with total points earned
 
 ---
 
 ## Design System
 
-The visual language is built on a strict colour-wheel palette. Every interactive state derives from two base hues rather than arbitrary one-off colours.
+The visual language is built on a strict colour-wheel palette. Every interactive state derives from two base hues rather than arbitrary one-off values.
 
-**Palette:**
+**Colour palette:**
 
 | Role | Value | Hue |
 |---|---|---|
 | Board dark square | `#3e4470` | 240° indigo-violet |
 | Board light square | `#c9cce8` | 240° lavender |
-| UI chrome / backgrounds | `#07080f` → `#22264a` | 240° deep space |
-| Gold accent | `#c9a84c` | 38° amber — split-complementary |
-| Success / correct | `#5ec9a8` | 160° teal — triadic third vertex |
-| Check state | `rgba(200,60,80)` | 350° warm crimson — urgency without palette clash |
-| Last-move highlight | `rgba(201,168,76,.28)` | Gold overlay — visible on both square tones |
-| Move dots / capture rings | Gold `rgba(201,168,76,.88)` | Consistent with accent language |
+| UI chrome and backgrounds | `#07080f` to `#22264a` | 240° deep space |
+| Gold accent | `#c9a84c` | 38° amber (split-complementary) |
+| Success / correct move | `#5ec9a8` | 160° teal (triadic third vertex) |
+| Check state | `rgba(200,60,80)` | 350° warm crimson (urgent, palette-adjacent) |
+| Last-move highlight | `rgba(201,168,76,.28)` | Gold overlay, visible on both square tones |
+| Move dots and capture rings | `rgba(201,168,76,.88)` | Gold, consistent with accent language |
 
-**Pieces:** Custom SVG Staunton set. All twelve pieces (six white, six black) share a unified design system: `stroke-width 1.5` throughout, matching gradient fills (ivory-to-lavender for white, indigo-to-near-black for black), and a redrawn knight with proper horse-head silhouette — forehead dome, snout, jaw curve, and anatomically placed eye.
+**Piece set:** Custom SVG Staunton set. All twelve pieces share a unified design system with `stroke-width: 1.5` throughout, matching gradient fills (ivory-to-lavender for white, indigo-to-near-black for black), and a redrawn knight with a proper horse-head silhouette including forehead dome, snout projection, jaw curve, and an anatomically placed eye.
 
 ---
 
 ## Technical Architecture
 
-**Language:** Vanilla JavaScript (ES2020), no build step required. Open `index.html` in any modern browser.
+**Stack:** Vanilla JavaScript (ES2020), HTML5, CSS3. No build tools required.
 
 **File structure:**
 
 ```
-index.html          — All screens and UI markup
-style.css           — Complete design system (950 lines, CSS custom properties throughout)
-game.js             — UI controller, rendering, puzzle engine, event handling
-chess-engine.js     — Self-contained chess engine: move generation, AI, evaluation
+index.html          All screens and UI markup
+style.css           Complete design system, 950 lines, CSS custom properties throughout
+game.js             UI controller, rendering, puzzle engine, and event handling
+chess-engine.js     Self-contained chess engine: move generation, AI search, evaluation
 ```
 
 **Engine internals (`chess-engine.js`):**
 
-The chess engine is a fully self-contained class (`ChessEngine`) with no external dependencies.
+The chess engine is a fully self-contained `ChessEngine` class with no external dependencies.
 
-- Board represented as an 8×8 JavaScript array of piece objects
+- Board represented as an 8x8 JavaScript array of piece objects
 - Pseudo-legal move generation with sliding piece ray casting
-- Full legality filter via temporary-apply/undo check detection
-- En passant, castling rights, and promotion handled in move generation and make/unmake
-- Minimax search with alpha-beta pruning (depth scales with difficulty)
-- Static evaluation: material values + piece-square tables for all six piece types
-- Incremental undo stack — full state snapshot per move, O(1) restore
+- Full legality filter via temporary-apply and undo check detection
+- En passant, castling rights, and promotion handled in both generation and make/unmake
+- Minimax search with alpha-beta pruning, depth scaling per difficulty tier
+- Static evaluation using material values and piece-square tables for all six piece types
+- Incremental undo stack with full state snapshot per move and O(1) restore
 - Algebraic notation generation including `+` and `#` suffixes
 
-**No external libraries.** No jQuery, no chess.js, no React. Every system — move generation, AI search, UI rendering, puzzle validation, scoring — is written from scratch in the codebase.
+No jQuery, no chess.js, no React. Every system including move generation, AI search, UI rendering, puzzle validation, and scoring is written from scratch.
 
 ---
 
-## Running the Game
+## Getting Started
 
 No installation, no server, no build step.
 
@@ -127,9 +127,8 @@ No installation, no server, no build step.
 git clone https://github.com/your-username/checkmate.git
 cd checkmate
 open index.html        # macOS
-# or
 start index.html       # Windows
-# or just drag index.html into any browser
+# or drag index.html into any modern browser
 ```
 
 Tested in Chrome 120+, Firefox 121+, Safari 17+, Edge 120+.
@@ -139,11 +138,11 @@ Tested in Chrome 120+, Firefox 121+, Safari 17+, Edge 120+.
 ## Roadmap
 
 - Deeper AI search with iterative deepening and move ordering
-- Opening book for the first 8–10 moves
+- Opening book for the first 8-10 moves
 - Online multiplayer via WebSockets
 - Daily puzzle feed
 - PGN import and game replay
-- Achievement system and persistent statistics
+- Achievement system with persistent statistics
 - Global leaderboard
 
 ---
@@ -151,7 +150,8 @@ Tested in Chrome 120+, Firefox 121+, Safari 17+, Edge 120+.
 ## Philosophy
 
 > *"Chess is the struggle against error."*
-> — Johannes Zukertort
+>
+> Johannes Zukertort
 
 CHECKMATE is built on the belief that chess software should feel as considered as the game itself. Every colour choice, every SVG anchor point, every AI decision is deliberate. The history encoded in these puzzles deserves a worthy frame.
 
