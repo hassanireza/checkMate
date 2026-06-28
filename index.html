@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
-<title>CHECKMATE — Chess Puzzle</title>
+<title>CHECKMATE | Chess Puzzle</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -27,29 +27,31 @@
     <div class="intro-content">
       <div class="intro-eyebrow">The Grand Masters Collection</div>
       <h1 class="intro-title">Check<em>mate</em></h1>
-      <p class="intro-sub">Legendary endgames. Solved in three moves.</p>
+      <p class="intro-sub">Twelve classic mating patterns. Checkmate in two.</p>
       <div class="intro-meta">
-        <span class="meta-pill">24 Puzzles</span>
+        <span class="meta-pill">12 Puzzles</span>
         <span class="meta-dot"></span>
-        <span class="meta-pill">Historical Games</span>
+        <span class="meta-pill">Classic Patterns</span>
         <span class="meta-dot"></span>
-        <span class="meta-pill">3 Moves to Win</span>
+        <span class="meta-pill">Checkmate in 2</span>
       </div>
       <button class="btn-start" id="btnStart">Begin Playing</button>
       <div class="intro-scroll-hint">↓ scroll through history</div>
     </div>
     <div class="intro-ticker" aria-hidden="true">
       <div class="ticker-track">
-        <span>Morphy · 1858 · Opera Game</span>
-        <span>Kasparov · 1999 · Topalov</span>
-        <span>Anderssen · 1851 · Immortal</span>
-        <span>Fischer · 1956 · Game of Century</span>
-        <span>Tal · 1960 · Botvinnik</span>
-        <span>Morphy · 1858 · Opera Game</span>
-        <span>Kasparov · 1999 · Topalov</span>
-        <span>Anderssen · 1851 · Immortal</span>
-        <span>Fischer · 1956 · Game of Century</span>
-        <span>Tal · 1960 · Botvinnik</span>
+        <span>Morphy · 1858 · Opera House Game</span>
+        <span>Back-Rank · Rook Ladder</span>
+        <span>Corner Mate · Queen & Knight</span>
+        <span>Diagonal Trap · Bishop & Rook</span>
+        <span>Edge Pattern · Knight & Rook</span>
+        <span>Pawn-Shield Break · Queen & Bishop</span>
+        <span>Morphy · 1858 · Opera House Game</span>
+        <span>Back-Rank · Rook Ladder</span>
+        <span>Corner Mate · Queen & Knight</span>
+        <span>Diagonal Trap · Bishop & Rook</span>
+        <span>Edge Pattern · Knight & Rook</span>
+        <span>Pawn-Shield Break · Queen & Bishop</span>
       </div>
     </div>
   </div>
@@ -76,6 +78,12 @@
           <div class="board-labels-file" id="fileLabels"></div>
           <div class="board-wrap">
             <div class="board" id="board"></div>
+            <div class="mate-overlay" id="mateOverlay">
+              <div class="mate-overlay-inner">
+                <div class="mate-overlay-icon">♔</div>
+                <div class="mate-overlay-text">Checkmate</div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="board-footer">
