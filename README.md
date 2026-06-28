@@ -76,4 +76,4 @@ From a development perspective, it demonstrates the creation of a complete inter
 
 > “Chess is the struggle against error.”
 >
-> — Johannes Zukertort
+> - Johannes Zukertort
