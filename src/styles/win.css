@@ -1,0 +1,66 @@
+@import './tokens.css';
+
+.screen-win {
+  background: var(--abyss-000);
+  align-items: center;
+  justify-content: center;
+}
+
+.win-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.win-crown {
+  color: var(--accent);
+  margin-bottom: var(--space-2);
+}
+
+.win-crown svg {
+  width: 40px;
+  height: 40px;
+}
+
+.win-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.win-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(40px, 7vw, 68px);
+  color: var(--salt);
+}
+
+.win-score-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: var(--space-3) 0 var(--space-5);
+}
+
+.win-score-num {
+  font-family: var(--font-display);
+  font-size: 34px;
+  color: var(--accent);
+}
+
+.win-score-lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tracking-mid);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.win-actions {
+  display: flex;
+  gap: var(--space-3);
+}

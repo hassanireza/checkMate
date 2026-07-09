@@ -1,0 +1,190 @@
+@import './tokens.css';
+
+/**
+ * Global reset and atmosphere layers. Texture is composited from three
+ * independent SVG/gradient layers so no raster image assets are required:
+ *   1. .texture-grain        coarse film grain (feTurbulence)
+ *   2. .texture-condensation soft droplet bloom (radial gradients)
+ *   3. .texture-vignette     the frame's absolute darkness at the edges
+ * They are stacked once at the app root and remain fixed, so the "camera"
+ * never moves relative to the grain, reinforcing the almost-static feel.
+ */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--accent-dim);
+  color: var(--abyss-050);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+a {
+  color: inherit;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Atmosphere layers                                                      */
+/* ---------------------------------------------------------------------- */
+
+.texture-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.texture-condensation {
+  position: fixed;
+  inset: 0;
+  z-index: 9996;
+  pointer-events: none;
+  opacity: 0.5;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(241, 237, 226, 0.05) 0, transparent 3%),
+    radial-gradient(circle at 82% 24%, rgba(241, 237, 226, 0.04) 0, transparent 2.4%),
+    radial-gradient(circle at 34% 68%, rgba(241, 237, 226, 0.045) 0, transparent 2.8%),
+    radial-gradient(circle at 68% 82%, rgba(241, 237, 226, 0.04) 0, transparent 2%),
+    radial-gradient(circle at 91% 60%, rgba(241, 237, 226, 0.03) 0, transparent 1.6%),
+    radial-gradient(circle at 6% 78%, rgba(241, 237, 226, 0.035) 0, transparent 2.2%);
+}
+
+.texture-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 9995;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 45%,
+    rgba(3, 4, 5, 0.55) 88%,
+    rgba(3, 4, 5, 0.92) 100%
+  );
+}
+
+/* ---------------------------------------------------------------------- */
+/* Shared plate frame — every screen sits inside a 135mm portrait plate    */
+/* ---------------------------------------------------------------------- */
+
+.plate {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+}
+
+.plate-frame-lines {
+  position: fixed;
+  inset: 18px;
+  z-index: 5;
+  pointer-events: none;
+  border: 1px solid var(--border-hairline);
+}
+
+.plate-frame-lines::before,
+.plate-frame-lines::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+}
+
+.plate-caption {
+  position: fixed;
+  left: 32px;
+  bottom: 22px;
+  z-index: 6;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.plate-registration {
+  position: fixed;
+  right: 32px;
+  bottom: 22px;
+  z-index: 6;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--tracking-mid);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Motion: shallow and slow. Reduced-motion users get stillness entirely. */
+/* ---------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Scrollbars, where they must exist, stay austere. */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-visible);
+  border-radius: var(--radius-sm);
+}

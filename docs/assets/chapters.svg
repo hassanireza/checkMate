@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 160" role="img" aria-labelledby="chtitle">
+  <title id="chtitle">Eight chapter editorial arc</title>
+  <rect width="1200" height="160" fill="#06080a"/>
+  <g font-family="Georgia, serif" fill="#e7ded0">
+    <!-- 8 equal cells -->
+    <g font-size="13" letter-spacing="1">
+      <!-- chapter I -->
+      <g transform="translate(10,0)">
+        <rect x="0" y="20" width="130" height="120" fill="#0a0d10" stroke="#f1ede2" stroke-opacity="0.1"/>
+        <text x="65" y="45" text-anchor="middle" fill="#9fb3ac" font-size="11">I</text>
+        <text x="65" y="90" text-anchor="middle" font-size="11">Arrival</text>
+      </g>
+      <g transform="translate(150,0)">
+        <rect x="0" y="20" width="130" height="120" fill="#0a0d10" stroke="#f1ede2" stroke-opacity="0.1"/>
+        <text x="65" y="45" text-anchor="middle" fill="#9fb3ac" font-size="11">II</text>
+        <text x="65" y="90" text-anchor="middle" font-size="11">Initiation</text>
+      </g>
+      <g transform="translate(290,0)">
+        <rect x="0" y="20" width="130" height="120" fill="#0a0d10" stroke="#f1ede2" stroke-opacity="0.1"/>
+        <text x="65" y="45" text-anchor="middle" fill="#9fb3ac" font-size="11">III</text>
+        <text x="65" y="90" text-anchor="middle" font-size="11">Communion</text>
+      </g>
+      <g transform="translate(430,0)">
+        <rect x="0" y="20" width="130" height="120" fill="#0a0d10" stroke="#f1ede2" stroke-opacity="0.1"/>
+        <text x="65" y="45" text-anchor="middle" fill="#9fb3ac" font-size="11">IV</text>
+        <text x="65" y="90" text-anchor="middle" font-size="11">Tithe</text>
+      </g>
+      <g transform="translate(570,0)">
+        <rect x="0" y="20" width="130" height="120" fill="#0a0d10" stroke="#f1ede2" stroke-opacity="0.1"/>
+        <text x="65" y="45" text-anchor="middle" fill="#9fb3ac" font-size="11">V</text>
+        <text x="65" y="90" text-anchor="middle" font-size="11">Procession</text>
+      </g>
+      <g transform="translate(710,0)">
+        <rect x="0" y="20" width="130" height="120" fill="#0a0d10" stroke="#f1ede2" stroke-opacity="0.1"/>
+        <text x="65" y="45" text-anchor="middle" fill="#9fb3ac" font-size="11">VI</text>
+        <text x="65" y="90" text-anchor="middle" font-size="11">Shedding</text>
+      </g>
+      <g transform="translate(850,0)">
+        <rect x="0" y="20" width="160" height="120" fill="#0a0d10" stroke="#f1ede2" stroke-opacity="0.1"/>
+        <text x="80" y="45" text-anchor="middle" fill="#9fb3ac" font-size="11">VII</text>
+        <text x="80" y="90" text-anchor="middle" font-size="11">Cathedral of Water</text>
+      </g>
+      <g transform="translate(1020,0)">
+        <rect x="0" y="20" width="170" height="120" fill="#0a0d10" stroke="#f1ede2" stroke-opacity="0.1"/>
+        <text x="85" y="45" text-anchor="middle" fill="#9fb3ac" font-size="11">VIII</text>
+        <text x="85" y="90" text-anchor="middle" font-size="11">Return</text>
+      </g>
+    </g>
+  </g>
+</svg>
