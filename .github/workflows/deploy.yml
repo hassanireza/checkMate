@@ -25,10 +25,9 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: 22
 
-      - run: npm ci
+      - run: npm install
 
       - name: Lint
         run: npm run lint
@@ -51,10 +50,9 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: 22
 
-      - run: npm ci
+      - run: npm install
 
       - name: Build
         env:
