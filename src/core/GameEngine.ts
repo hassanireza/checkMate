@@ -115,40 +115,49 @@ export class GameEngine {
     this.loadPuzzleAt(0, { resetScore: false });
   }
 
+  private cachedSnapshot: GameSnapshot | null = null;
+
   subscribe(listener: Listener): () => void {
     this.listeners.add(listener);
     return () => this.listeners.delete(listener);
   }
 
   private notify(): void {
+    this.cachedSnapshot = null;
     this.listeners.forEach((listener) => listener());
   }
 
-  getSnapshot = (): GameSnapshot => ({
-    screen: this.screen,
-    mode: this.mode,
-    puzzles: this.puzzles,
-    index: this.index,
-    puzzle: this.puzzles[this.index],
-    board: this.boardMatrix(),
-    selected: this.selected,
-    legalDestinations: this.legalDestinations,
-    hintSquare: this.hintSquare,
-    hintText: this.hintText,
-    moveNum: this.moveNum,
-    puzzleDone: this.puzzleDone,
-    awaitingOpponent: this.awaitingOpponent,
-    feedback: this.feedback,
-    moveHistory: this.moveHistory,
-    score: this.score,
-    solved: this.solved,
-    streak: this.streak,
-    bestStreak: this.bestStreak,
-    soundEnabled: this.soundEnabled,
-    newAchievements: this.newAchievements,
-    dailyChallengeStreak: this.dailyChallengeStreak,
-    lastSolveDurationMs: this.lastSolveDurationMs,
-  });
+  getSnapshot = (): GameSnapshot => {
+    if (this.cachedSnapshot) return this.cachedSnapshot;
+
+    this.cachedSnapshot = {
+      screen: this.screen,
+      mode: this.mode,
+      puzzles: this.puzzles,
+      index: this.index,
+      puzzle: this.puzzles[this.index],
+      board: this.boardMatrix(),
+      selected: this.selected,
+      legalDestinations: this.legalDestinations,
+      hintSquare: this.hintSquare,
+      hintText: this.hintText,
+      moveNum: this.moveNum,
+      puzzleDone: this.puzzleDone,
+      awaitingOpponent: this.awaitingOpponent,
+      feedback: this.feedback,
+      moveHistory: this.moveHistory,
+      score: this.score,
+      solved: this.solved,
+      streak: this.streak,
+      bestStreak: this.bestStreak,
+      soundEnabled: this.soundEnabled,
+      newAchievements: this.newAchievements,
+      dailyChallengeStreak: this.dailyChallengeStreak,
+      lastSolveDurationMs: this.lastSolveDurationMs,
+    };
+
+    return this.cachedSnapshot;
+  };
 
   private boardMatrix(): Cell[][] {
     const matrix: Cell[][] = [];
