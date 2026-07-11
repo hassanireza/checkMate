@@ -5,6 +5,14 @@
   display: grid;
   grid-template-columns: 20px 1fr;
   grid-template-rows: 1fr 20px;
+  max-width: 100%;
+}
+
+@media (max-width: 360px) {
+  .board-frame {
+    grid-template-columns: 14px 1fr;
+    grid-template-rows: 1fr 14px;
+  }
 }
 
 .board-labels-rank {
@@ -41,11 +49,18 @@
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
-  width: min(72vh, 560px);
+  width: min(72vh, 88vw, 560px);
+  max-width: 100%;
   aspect-ratio: 1;
   border: 1px solid var(--border-visible);
   box-shadow: var(--shadow-veil);
   background: var(--water-100);
+}
+
+@media (max-width: 600px) {
+  .board {
+    width: min(58vh, 92vw, 560px);
+  }
 }
 
 .sq {

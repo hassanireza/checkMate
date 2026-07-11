@@ -19,7 +19,11 @@
   background: var(--abyss-000);
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .intro-field {
@@ -60,6 +64,8 @@
   align-items: center;
   gap: var(--space-5);
   max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .intro-eyebrow {
@@ -124,6 +130,7 @@
   margin-top: var(--space-4);
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
 }
 
 .btn-start {
@@ -135,6 +142,10 @@
   background: var(--salt);
   padding: 14px 34px;
   border-radius: var(--radius-sm);
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: transform var(--duration-fast) var(--ease-still), background var(--duration-fast) var(--ease-still);
 }
 
@@ -153,8 +164,10 @@
   border: 1px solid var(--border-visible);
   padding: 14px 28px;
   border-radius: var(--radius-sm);
+  min-height: 48px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   transition: border-color var(--duration-fast) var(--ease-still), color var(--duration-fast) var(--ease-still);
 }
@@ -204,8 +217,8 @@
 
 .intro-footer-links {
   position: absolute;
-  top: 22px;
-  right: 28px;
+  top: calc(22px + env(safe-area-inset-top));
+  right: calc(28px + env(safe-area-inset-right));
   display: flex;
   gap: var(--space-3);
   z-index: 3;
@@ -231,4 +244,86 @@
 .icon-btn svg {
   width: 16px;
   height: 16px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Mobile: phone-first layout for the intro / home screen                 */
+/* ---------------------------------------------------------------------- */
+
+@media (max-width: 600px) {
+  .intro-content {
+    padding: var(--space-5) var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .intro-title {
+    font-size: clamp(38px, 13vw, 64px);
+  }
+
+  .intro-eyebrow {
+    font-size: 10px;
+    letter-spacing: var(--tracking-mid);
+    text-align: center;
+  }
+
+  .intro-sub {
+    font-size: 14px;
+    max-width: 34ch;
+  }
+
+  .intro-meta {
+    flex-wrap: wrap;
+    row-gap: var(--space-2);
+    justify-content: center;
+  }
+
+  .meta-pill {
+    font-size: 9px;
+    padding: 5px 10px;
+  }
+
+  .intro-actions {
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  .btn-start,
+  .btn-daily {
+    width: 100%;
+    padding: 14px 20px;
+  }
+
+  .intro-footer-links {
+    top: calc(16px + env(safe-area-inset-top));
+    right: calc(16px + env(safe-area-inset-right));
+  }
+
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .intro-scroll-hint {
+    font-size: 9px;
+    padding: 0 var(--space-3);
+  }
+
+  .intro-piece {
+    font-size: clamp(40px, 16vw, 72px);
+  }
+}
+
+/* Very short viewports (landscape phones, small phones with browser chrome):
+   the ticker is decorative, so it's the first thing to go. */
+@media (max-height: 640px) {
+  .intro-ticker {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .intro-title {
+    font-size: clamp(32px, 14vw, 52px);
+  }
 }
