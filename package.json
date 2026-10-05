@@ -1,5 +1,5 @@
 {
-  "name": "checkmate",
+  "name": "woodland-chess-checkmate",
   "version": "2.0.0",
   "private": true,
   "description": "CHECKMATE, a monochrome editorial chess puzzle collection built with TypeScript and React.",

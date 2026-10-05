@@ -1,112 +1,70 @@
 /**
  * ============================================================================
- * SUBMERGED CATHEDRAL — Design Token System
+ * WOODLAND CHESS — Design Token System (CheckMate Edition)
  * ----------------------------------------------------------------------------
- * Art direction: baroque religious portraiture stripped to monochrome,
- * Scandinavian ritual minimalism, museum conservation photography, deep-sea
- * macro biology. Every surface reads as tactile and imperfect: grain,
- * condensation, salt, cracked skin, oxidized metal. Movement is shallow,
- * almost static, the frame breathes rather than animates.
- *
- * This file is the single source of truth for color, type, spacing, and
- * texture across the application. See /DESIGN_SYSTEM.md for the full
- * editorial rationale and the eight-chapter narrative each screen draws on.
+ * This edition of CheckMate uses the exact Woodland Chess design language:
+ * dark blue-gray backgrounds, warm ivory / cool steel pieces, Cormorant
+ * Garamond display type, Jost body, JetBrains Mono labels.
  * ============================================================================
  */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap');
 
 :root {
-  /* ---- Chapter I: The Arrival — absolute darkness, only the face exists --- */
-  --abyss-000: #030405;
-  --abyss-050: #06080a;
-  --abyss-100: #0a0d10;
-  --abyss-150: #0f1316;
-  --abyss-200: #151a1d;
+  /* ── Core palette — Woodland Chess ─────────────────────── */
+  --bg:           #08090b;
+  --bg-2:         #0d1013;
+  --bg-3:         #12161a;
+  --surface:      rgba(214, 219, 222, 0.035);
+  --border:       rgba(214, 219, 222, 0.07);
+  --border-hover: rgba(214, 219, 222, 0.18);
 
-  /* ---- Chapter II: Initiation — black water, wet skin, no movement -------- */
-  --water-100: #101a1c;
-  --water-200: #17262a;
-  --water-300: #223638;
+  --text:         #e6e3da;
+  --text-2:       #9aa3a8;
+  --text-3:       #7f8589;
 
-  /* ---- Chapter IV: Tithe — skin, salt, scars, wet leather ------------------ */
-  --skin-pale: #e7ded0;
-  --skin-mid: #b9ac98;
-  --salt: #f1ede2;
-  --salt-dim: #cfc9bb;
-  --scar: #4a2f28;
-  --leather: #1c1512;
-  --leather-wet: #241a15;
+  --accent:       #7c8891;
+  --accent-dim:   rgba(124, 136, 145, 0.13);
+  --accent-bright:#c9cfd2;
 
-  /* ---- Chapter III / VI: oxidized metal, fish-scale, membrane ------------- */
-  --oxide: #3c4d47;
-  --oxide-dim: #2a3733;
-  --nacre: #9fb3ac;
-  --verdigris: #4f6b60;
+  /* ── Board squares ─────────────────────────────────────── */
+  --sq-light:     #1a2027;
+  --sq-dark:      #0d1013;
+  --sq-selected:  rgba(201, 207, 210, 0.18);
+  --sq-possible:  rgba(201, 207, 210, 0.55);
+  --sq-hint:      rgba(192, 83, 74, 0.45);
 
-  /* ---- Functional aliases --------------------------------------------------- */
-  --bg-primary: var(--abyss-050);
-  --bg-secondary: var(--water-100);
-  --bg-tertiary: var(--leather-wet);
-  --surface-raised: var(--abyss-150);
+  /* ── Piece filters (cburnett neutral-gray base → brand tones) */
+  --piece-filter-w:
+    brightness(2.0) sepia(0.10) saturate(0.90)
+    drop-shadow(0 2px 4px rgba(0,0,0,0.60));
+  --piece-filter-b:
+    brightness(1.28) hue-rotate(196deg) saturate(0.72)
+    drop-shadow(0 2px 6px rgba(0,0,0,0.85));
 
-  --text-primary: var(--salt);
-  --text-secondary: var(--skin-mid);
-  --text-muted: #6c655a;
-  --text-inverse: var(--abyss-050);
+  /* ── Radius / shadow / easing ─────────────────────────── */
+  --radius-card:  2px;
+  --shadow:       0 1px 3px rgba(0,0,0,.45), 0 8px 40px rgba(0,0,0,.55);
+  --shadow-hover: 0 2px 8px rgba(0,0,0,.5), 0 24px 70px rgba(0,0,0,.65);
+  --ease:         cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out:     cubic-bezier(0, 0, 0.2, 1);
+  --ease-liturgy: cubic-bezier(0.16, 0.4, 0.15, 1);
 
-  --accent: var(--nacre);
-  --accent-dim: var(--verdigris);
-  --accent-warn: #7a4a3d;
-  --accent-warn-bright: #9c5f4c;
+  /* ── Typography ───────────────────────────────────────── */
+  --font-display: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  --font-body:    "Jost", "DM Sans", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", monospace;
 
-  --border-hairline: rgba(241, 237, 226, 0.08);
-  --border-visible: rgba(241, 237, 226, 0.16);
-  --border-strong: rgba(241, 237, 226, 0.28);
+  /* ── Space scale ──────────────────────────────────────── */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px;
 
-  --square-light: #23302e;
-  --square-dark: #121a19;
-  --square-light-active: #34473f;
-  --square-dark-active: #1c2823;
-  --square-select: rgba(159, 179, 172, 0.55);
-  --square-possible: rgba(159, 179, 172, 0.22);
-  --square-hint: rgba(122, 74, 61, 0.6);
+  /* ── Duration / safe area ─────────────────────────────── */
+  --duration-slow: 1200ms;
+  --duration-med:  600ms;
+  --duration-fast: 280ms;
 
-  --piece-light: #f1ede2;
-  --piece-light-shadow: rgba(0, 0, 0, 0.55);
-  --piece-dark: #0a0d10;
-  --piece-dark-shadow: rgba(159, 179, 172, 0.25);
-
-  --shadow-veil: 0 24px 80px rgba(0, 0, 0, 0.55);
-  --shadow-close: 0 8px 28px rgba(0, 0, 0, 0.4);
-  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.03);
-
-  /* ---- Typography — baroque display, ritual body, conservation-label mono - */
-  --font-display: 'Cormorant Garamond', 'Playfair Display', serif;
-  --font-body: 'Libre Baskerville', serif;
-  --font-mono: 'DM Mono', monospace;
-
-  --tracking-wide: 0.32em;
-  --tracking-mid: 0.16em;
-  --tracking-tight: 0.02em;
-
-  /* ---- Motion — shallow, almost static. Nothing bounces. ------------------- */
-  --ease-still: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --duration-slow: 1400ms;
-  --duration-med: 700ms;
-  --duration-fast: 320ms;
-
-  /* ---- Geometry -------------------------------------------------------------- */
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 6px;
-  --frame-ratio: 135 / 180; /* 135mm portrait plate reference */
-
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 24px;
-  --space-6: 32px;
-  --space-7: 48px;
-  --space-8: 64px;
-  --space-9: 96px;
+  --safe-top:    env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left:   env(safe-area-inset-left, 0px);
+  --safe-right:  env(safe-area-inset-right, 0px);
 }

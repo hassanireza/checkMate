@@ -1,50 +1,41 @@
 @import './tokens.css';
 
+/* ── Board frame with rank/file labels ─────────────────── */
 .board-frame {
   position: relative;
   display: grid;
-  grid-template-columns: 20px 1fr;
-  grid-template-rows: 1fr 20px;
+  grid-template-columns: 18px 1fr;
+  grid-template-rows: 1fr 18px;
   max-width: 100%;
 }
 
 @media (max-width: 360px) {
-  .board-frame {
-    grid-template-columns: 14px 1fr;
-    grid-template-rows: 1fr 14px;
-  }
+  .board-frame { grid-template-columns: 13px 1fr; grid-template-rows: 1fr 13px; }
 }
 
 .board-labels-rank {
-  grid-column: 1;
-  grid-row: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  grid-column: 1; grid-row: 1;
+  display: flex; flex-direction: column;
+  justify-content: space-around; align-items: center;
 }
 
 .board-labels-file {
-  grid-column: 2;
-  grid-row: 2;
-  display: flex;
-  justify-content: space-around;
+  grid-column: 2; grid-row: 2;
+  display: flex; justify-content: space-around;
 }
 
 .board-labels-rank span,
 .board-labels-file span {
   font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-muted);
-  letter-spacing: var(--tracking-tight);
+  font-size: 9px;
+  color: var(--text-3);
+  opacity: 0.5;
+  line-height: 1;
 }
 
-.board-wrap {
-  grid-column: 2;
-  grid-row: 1;
-  position: relative;
-}
+.board-wrap { grid-column: 2; grid-row: 1; position: relative; }
 
+/* ── Board grid ─────────────────────────────────────────── */
 .board {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -52,192 +43,159 @@
   width: min(72vh, 88vw, 560px);
   max-width: 100%;
   aspect-ratio: 1;
-  border: 1px solid var(--border-visible);
-  box-shadow: var(--shadow-veil);
-  background: var(--water-100);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  touch-action: manipulation;
 }
 
 @media (max-width: 600px) {
-  .board {
-    width: min(58vh, 92vw, 560px);
-  }
+  .board { width: min(58vh, 92vw, 560px); }
 }
 
+/* ── Squares ─────────────────────────────────────────────── */
 .sq {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-still);
+  transition: background-color var(--duration-fast) var(--ease);
+  border: 0; padding: 0; min-width: 0; min-height: 0;
 }
 
-.sq.light {
-  background: var(--square-light);
-}
+.sq.light { background: var(--sq-light); }
+.sq.dark  { background: var(--sq-dark); }
 
-.sq.dark {
-  background: var(--square-dark);
-}
+.sq.selected { background: var(--sq-selected) !important; }
 
-.sq.selected {
-  background: var(--square-select) !important;
-}
+.sq.hint-sq  { background: var(--sq-hint) !important; }
 
+/* Move indicator dot */
 .sq.possible::after {
   content: '';
   position: absolute;
-  width: 26%;
-  height: 26%;
+  width: 28%; aspect-ratio: 1;
   border-radius: 50%;
-  background: var(--square-possible);
-}
-
-.sq.has-piece.possible::after {
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
-  border: 2px solid var(--square-possible);
-  background: transparent;
-}
-
-.sq.hint-sq {
-  background: var(--square-hint) !important;
-}
-
-.sq.opponent-move {
-  animation: opponentGlow var(--duration-med) var(--ease-still);
-}
-
-.sq.capture-flash {
-  animation: captureFlash var(--duration-med) var(--ease-still);
-}
-
-.sq.move-anim .piece {
-  animation: pieceSettle var(--duration-fast) var(--ease-still);
-}
-
-@keyframes opponentGlow {
-  0% { background-color: var(--square-select); }
-  100% { background-color: inherit; }
-}
-
-@keyframes captureFlash {
-  0% { box-shadow: inset 0 0 0 3px var(--accent-warn-bright); }
-  100% { box-shadow: inset 0 0 0 0 transparent; }
-}
-
-@keyframes pieceSettle {
-  0% { transform: scale(0.88); opacity: 0.6; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.piece {
-  font-size: clamp(28px, 6vw, 46px);
-  line-height: 1;
-  user-select: none;
+  background: var(--accent-bright);
+  opacity: 0.45;
   pointer-events: none;
+  animation: subtlePulse 2s var(--ease) infinite;
 }
 
-.piece.white-piece {
-  color: var(--piece-light);
-  text-shadow: 0 1px 3px var(--piece-light-shadow);
+/* Capture ring */
+.sq.has-piece.possible::after {
+  width: 100%; height: 100%;
+  border-radius: 0;
+  border: 2px solid var(--accent-bright);
+  background: transparent;
+  opacity: 0.4;
 }
 
-.piece.black-piece {
-  color: var(--piece-dark);
-  text-shadow: 0 0 0 var(--piece-dark-shadow), 0 1px 2px rgba(0, 0, 0, 0.6);
+@keyframes subtlePulse {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 0.6; }
 }
 
+/* ── Piece SVG images (cburnett set, same as main game) ─── */
+.piece {
+  width: 86%; height: 86%;
+  object-fit: contain;
+  pointer-events: none; user-select: none;
+  z-index: 2; image-rendering: auto;
+  transition: transform 0.15s var(--ease), filter 0.15s var(--ease);
+}
+
+.piece.white-piece { filter: var(--piece-filter-w); }
+.piece.black-piece { filter: var(--piece-filter-b); }
+
+.sq:hover .piece { transform: translateY(-3px); }
+
+/* ── Board shake animation ──────────────────────────────── */
 @keyframes boardShake {
-  0% { transform: translateX(0); }
-  15% { transform: translateX(-5px); }
-  30% { transform: translateX(5px); }
-  45% { transform: translateX(-3px); }
-  60% { transform: translateX(3px); }
-  75% { transform: translateX(-1px); }
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(-5px); }
+  30%  { transform: translateX(5px); }
+  45%  { transform: translateX(-3px); }
+  60%  { transform: translateX(3px); }
+  75%  { transform: translateX(-1px); }
   100% { transform: translateX(0); }
 }
 
-.board.shake {
-  animation: boardShake var(--duration-fast) ease;
+.board.shake { animation: boardShake var(--duration-fast) ease; }
+
+/* ── Opponent move / capture flash ──────────────────────── */
+.sq.opponent-move  { animation: opponentGlow var(--duration-med) var(--ease); }
+.sq.capture-flash  { animation: captureFlash var(--duration-med) var(--ease); }
+.sq.move-anim .piece { animation: pieceSettle var(--duration-fast) var(--ease); }
+
+@keyframes opponentGlow {
+  0%   { background-color: var(--sq-selected); }
+  100% { background-color: inherit; }
+}
+@keyframes captureFlash {
+  0%   { box-shadow: inset 0 0 0 3px var(--accent-bright); }
+  100% { box-shadow: inset 0 0 0 0 transparent; }
+}
+@keyframes pieceSettle {
+  0%   { transform: scale(0.88); opacity: 0.6; }
+  100% { transform: scale(1);    opacity: 1; }
 }
 
+/* ── Checkmate overlay ──────────────────────────────────── */
 .mate-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at center, rgba(3, 4, 5, 0.2) 0%, rgba(3, 4, 5, 0.86) 100%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--duration-slow) var(--ease-still);
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at center, rgba(8,9,11,0.2) 0%, rgba(8,9,11,0.88) 100%);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--duration-slow) var(--ease-liturgy);
 }
 
-.mate-overlay.show {
-  opacity: 1;
-}
+.mate-overlay.show { opacity: 1; }
 
 .mate-overlay-inner {
   text-align: center;
-  transform: translateY(6px);
-  opacity: 0;
-  transition: all var(--duration-slow) var(--ease-still);
+  transform: translateY(8px); opacity: 0;
+  transition: all var(--duration-slow) var(--ease-liturgy);
 }
 
 .mate-overlay.show .mate-overlay-inner {
-  transform: translateY(0);
-  opacity: 1;
+  transform: translateY(0); opacity: 1;
 }
 
 .mate-overlay-icon {
-  font-size: 40px;
-  color: var(--accent);
-  margin-bottom: var(--space-3);
+  font-size: 2.2rem;
+  color: var(--accent-bright);
+  margin-bottom: 0.5rem;
 }
 
 .mate-overlay-text {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 22px;
-  letter-spacing: var(--tracking-mid);
-  color: var(--salt);
+  font-size: 1.3rem;
+  letter-spacing: 0.06em;
+  color: var(--text);
 }
 
+/* ── Board footer (turn badge + move dots) ──────────────── */
 .board-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: var(--space-4);
-  padding: 0 4px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: var(--space-4); padding: 0 4px;
 }
 
 .turn-badge {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: var(--tracking-mid);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--text-2);
 }
 
-.move-dots {
-  display: flex;
-  gap: 6px;
-}
+.move-dots { display: flex; gap: 6px; }
 
 .move-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--border-visible);
-  transition: background var(--duration-med) var(--ease-still);
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border);
+  transition: background var(--duration-med) var(--ease);
 }
 
-.move-dot.filled {
-  background: var(--accent);
-}
-
-.move-dot.used {
-  background: var(--accent-dim);
-}
+.move-dot.filled  { background: var(--accent-bright); }
+.move-dot.used    { background: var(--accent); }

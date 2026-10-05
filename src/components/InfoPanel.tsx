@@ -18,12 +18,14 @@ export function InfoPanel({ engine, snapshot }: InfoPanelProps) {
   return (
     <div className="info-col">
       {snapshot.mode === 'daily' && (
-        <div className="game-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-          <IconDroplet style={{ width: 12, height: 12 }} />
+        <div className="game-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+          <IconDroplet style={{ width: 11, height: 11 }} />
           Daily Challenge
         </div>
       )}
-      <div className={`game-badge ${puzzle.difficulty}`}>{puzzle.difficulty.charAt(0).toUpperCase() + puzzle.difficulty.slice(1)}</div>
+      <div className={`game-badge ${puzzle.difficulty}`}>
+        {puzzle.difficulty.charAt(0).toUpperCase() + puzzle.difficulty.slice(1)}
+      </div>
       <div className="puzzle-year">{puzzle.year}</div>
       <h2 className="puzzle-title">{puzzle.title}</h2>
       <div className="puzzle-subtitle">{puzzle.subtitle}</div>
@@ -31,7 +33,7 @@ export function InfoPanel({ engine, snapshot }: InfoPanelProps) {
 
       <div className="hint-row">
         <button type="button" className="btn-hint" onClick={() => engine.showHint()}>
-          <IconScroll style={{ width: 13, height: 13 }} />
+          <IconScroll style={{ width: 12, height: 12 }} />
           Hint
         </button>
         <div className="hint-text">{snapshot.hintText}</div>
@@ -41,7 +43,9 @@ export function InfoPanel({ engine, snapshot }: InfoPanelProps) {
         {snapshot.moveHistory.map((entry) => (
           <div className="move-entry" key={entry.index}>
             <span className="mn">{entry.index + 1}.</span>
-            <span className={`mv${entry.side === 'player' ? ' correct' : ''}`}>{entry.notation}</span>
+            <span className={`mv${entry.side === 'player' ? ' correct' : ''}`}>
+              {entry.notation}
+            </span>
             <span className="mn">{entry.sideLabel}</span>
           </div>
         ))}
@@ -49,14 +53,14 @@ export function InfoPanel({ engine, snapshot }: InfoPanelProps) {
 
       <div className="action-row">
         <button type="button" className="btn-ghost" onClick={() => engine.resetCurrentPuzzle()}>
-          <IconTide style={{ width: 13, height: 13 }} />
+          <IconTide style={{ width: 12, height: 12 }} />
           Reset
         </button>
         {snapshot.puzzleDone && (
           <>
             <button type="button" className="btn-next" onClick={() => engine.nextPuzzle()}>
               Next Puzzle
-              <IconKey style={{ width: 13, height: 13 }} />
+              <IconKey style={{ width: 12, height: 12 }} />
             </button>
             <button type="button" className="btn-pgn" onClick={handleExport}>
               Export PGN
@@ -65,7 +69,9 @@ export function InfoPanel({ engine, snapshot }: InfoPanelProps) {
         )}
       </div>
 
-      <div className={`feedback ${snapshot.feedback.type}`}>{snapshot.feedback.message}</div>
+      <div className={`feedback ${snapshot.feedback.type}`}>
+        {snapshot.feedback.message}
+      </div>
 
       <div className="stat-row">
         <div className="stat-item">
@@ -79,7 +85,7 @@ export function InfoPanel({ engine, snapshot }: InfoPanelProps) {
         </div>
         <div className="stat-sep" />
         <div className="stat-item">
-          <span className="stat-n">{snapshot.bestStreak || '\u2014'}</span>
+          <span className="stat-n">{snapshot.bestStreak || '—'}</span>
           <span className="stat-l">Best</span>
         </div>
       </div>
