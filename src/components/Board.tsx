@@ -22,12 +22,9 @@ export function Board({ snapshot, onSelectSquare }: BoardProps) {
     return undefined;
   }, [snapshot.feedback]);
 
-  const isSelected = (r: number, c: number) =>
-    snapshot.selected?.row === r && snapshot.selected?.col === c;
-  const isPossible = (r: number, c: number) =>
-    snapshot.legalDestinations.some((d) => d.row === r && d.col === c);
-  const isHint = (r: number, c: number) =>
-    snapshot.hintSquare?.row === r && snapshot.hintSquare?.col === c;
+  const isSelected = (r: number, c: number) => snapshot.selected?.row === r && snapshot.selected?.col === c;
+  const isPossible = (r: number, c: number) => snapshot.legalDestinations.some((d) => d.row === r && d.col === c);
+  const isHint = (r: number, c: number) => snapshot.hintSquare?.row === r && snapshot.hintSquare?.col === c;
 
   return (
     <div className="board-frame">
@@ -37,26 +34,18 @@ export function Board({ snapshot, onSelectSquare }: BoardProps) {
         ))}
       </div>
       <div className="board-wrap">
-        <div
-          className={`board${shake ? ' shake' : ''}`}
-          role="grid"
-          aria-label="Chess puzzle board"
-        >
+        <div className={`board${shake ? ' shake' : ''}`} role="grid" aria-label="Chess puzzle board">
           {Array.from({ length: 8 }).map((_, r) =>
-            Array.from({ length: 8 }).map((_2, c) => {
+            Array.from({ length: 8 }).map((__, c) => {
               const cell = snapshot.board[r][c];
               const isLight = (r + c) % 2 === 0;
-              const selected = isSelected(r, c);
-              const possible = isPossible(r, c);
-              const hint = isHint(r, c);
-              const hasPiece = !!cell;
-
-              const cls = [
+              const classes = [
                 'sq',
                 isLight ? 'light' : 'dark',
-                selected ? 'selected' : '',
-                hasPiece && possible ? 'has-piece possible' : possible ? 'possible' : '',
-                hint ? 'hint-sq' : '',
+                cell ? 'has-piece' : '',
+                isSelected(r, c) ? 'selected' : '',
+                isPossible(r, c) ? 'possible' : '',
+                isHint(r, c) ? 'hint-sq' : '',
               ]
                 .filter(Boolean)
                 .join(' ');
@@ -66,19 +55,15 @@ export function Board({ snapshot, onSelectSquare }: BoardProps) {
               return (
                 <div
                   key={`${r}-${c}`}
-                  className={cls}
+                  className={classes}
                   role="gridcell"
-                  aria-label={
-                    cell
-                      ? `${squareName}, ${cell.color === 'w' ? 'white' : 'black'} ${cell.type}`
-                      : squareName
-                  }
+                  aria-label={cell ? `${squareName}, ${cell.color === 'w' ? 'white' : 'black'} ${cell.type}` : squareName}
                   tabIndex={-1}
                   onClick={() => onSelectSquare(r, c)}
                 >
                   {cell && (
                     <img
-                      className={`piece ${cell.color === 'w' ? 'white-piece' : 'black-piece'}`}
+                      className={`piece-svg piece-svg--${cell.color}`}
                       src={PIECE_SVGS[cell.color][cell.type.toLowerCase()]}
                       alt=""
                       aria-hidden="true"
@@ -91,7 +76,7 @@ export function Board({ snapshot, onSelectSquare }: BoardProps) {
         </div>
         <div className={`mate-overlay${snapshot.puzzleDone ? ' show' : ''}`}>
           <div className="mate-overlay-inner">
-            <div className="mate-overlay-icon">♔</div>
+            <div className="mate-overlay-icon">&#9812;</div>
             <div className="mate-overlay-text">Checkmate</div>
           </div>
         </div>

@@ -43,7 +43,7 @@ const svg = (body: string) =>
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45">${body}</svg>`
   )}`
 
-export const PIECE_SVGS: Record<Color, Record<string, string>> = {
+export const PIECE_SVGS: Record<'w' | 'b', Record<string, string>> = {
   w: {
     // ── PAWN ────────────────────────────────────────────────────────────────
     // cburnett white pawn path (Chess_plt45.svg), fill rebound to neutral
@@ -164,5 +164,5 @@ export const PIECE_SVGS: Record<Color, Record<string, string>> = {
 
 export const files = ['a','b','c','d','e','f','g','h']
 export const ranks = ['8','7','6','5','4','3','2','1']
-export const squareName = (f: string, r: string) => `${f}${r}` as Square
+export const squareName = (f: string, r: string) => `${f}${r}`
 
