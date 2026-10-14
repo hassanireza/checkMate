@@ -49,21 +49,21 @@ export const ACHIEVEMENTS: Achievement[] = [
   {
     id: 'solved-10',
     title: 'Apprentice',
-    description: 'Solve ten puzzles in total.',
+    description: 'Solve ten different puzzles.',
     icon: 'seal',
     tier: 'bronze',
   },
   {
     id: 'solved-50',
     title: 'Journeyman',
-    description: `Solve fifty of the ${TOTAL_PUZZLES} puzzles in total.`,
+    description: `Solve fifty different puzzles out of ${TOTAL_PUZZLES}.`,
     icon: 'scroll',
     tier: 'silver',
   },
   {
     id: 'solved-100',
     title: 'Centurion',
-    description: `Solve ${TOTAL_PUZZLES} puzzles in total, across any number of runs.`,
+    description: `Solve every one of the ${TOTAL_PUZZLES} puzzles at least once, across any number of runs.`,
     icon: 'crown',
     tier: 'gold',
   },
@@ -83,8 +83,8 @@ export interface AchievementContext {
   allPuzzlesComplete: boolean;
   dailyChallengeStreak: number;
   isFirstSolveEver: boolean;
-  /** Lifetime puzzles solved, including the one just completed. */
-  totalSolved: number;
+  /** Distinct puzzles solved over all sessions, including the one just completed. */
+  uniqueSolved: number;
 }
 
 /**
@@ -110,9 +110,9 @@ export class AchievementService {
     if (context.isFirstSolveEver) unlock('first-blood');
     if (context.streak >= 5) unlock('streak-5');
     if (context.streak >= 25) unlock('streak-25');
-    if (context.totalSolved >= 10) unlock('solved-10');
-    if (context.totalSolved >= 50) unlock('solved-50');
-    if (context.totalSolved >= TOTAL_PUZZLES) unlock('solved-100');
+    if (context.uniqueSolved >= 10) unlock('solved-10');
+    if (context.uniqueSolved >= 50) unlock('solved-50');
+    if (context.uniqueSolved >= TOTAL_PUZZLES) unlock('solved-100');
     if (context.solvedWithoutHint) unlock('no-hints');
     if (context.solveDurationMs > 0 && context.solveDurationMs < 15000) unlock('speed-solver');
     if (context.allPuzzlesComplete) unlock('grandmaster');

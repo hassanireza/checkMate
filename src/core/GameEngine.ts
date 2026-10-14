@@ -373,6 +373,7 @@ export class GameEngine {
     const progress = storageService.load();
     const isFirstSolveEver = progress.totalSolved === 0;
     const solveDurationMs = Date.now() - this.solveStartedAt;
+    const solvedIds = Array.from(new Set([...progress.solvedPuzzleIds, puzzle.id]));
 
     this.puzzleDone = true;
     this.solved += 1;
@@ -392,7 +393,13 @@ export class GameEngine {
     if (this.mode === 'daily') {
       const today = new Date().toISOString().slice(0, 10);
       const wasYesterday = this.isYesterday(progress.lastDailyChallengeDate, today);
-      dailyStreak = wasYesterday ? progress.dailyChallengeStreak + 1 : 1;
+      const alreadyDoneToday = progress.lastDailyChallengeDate === today;
+      // Replaying today's daily must not reset or inflate the streak.
+      dailyStreak = alreadyDoneToday
+        ? Math.max(progress.dailyChallengeStreak, 1)
+        : wasYesterday
+          ? progress.dailyChallengeStreak + 1
+          : 1;
       this.dailyChallengeStreak = dailyStreak;
     }
 
@@ -404,7 +411,7 @@ export class GameEngine {
         allPuzzlesComplete,
         dailyChallengeStreak: dailyStreak,
         isFirstSolveEver,
-        totalSolved: progress.totalSolved + 1,
+        uniqueSolved: solvedIds.length,
       },
       progress,
     );
@@ -414,6 +421,7 @@ export class GameEngine {
 
     storageService.update({
       totalSolved: progress.totalSolved + 1,
+      solvedPuzzleIds: solvedIds,
       bestStreak: this.bestStreak,
       bestScore: Math.max(progress.bestScore, this.score),
       fastestSolveMs:
