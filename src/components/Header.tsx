@@ -11,8 +11,7 @@ export function Header({ engine, snapshot }: HeaderProps) {
   return (
     <header className="hdr">
       <button type="button" className="hdr-brand" onClick={() => engine.goHome()}>
-        <span className="hdr-brand-mark">♜</span>
-        <span>Woodland Chess — Check<em>mate</em></span>
+        ♜ WOODLAND <em>CHESS</em>
       </button>
       <div className="hdr-center">
         <div className="hdr-puzzle-num">{String(snapshot.index + 1).padStart(2, '0')}</div>
