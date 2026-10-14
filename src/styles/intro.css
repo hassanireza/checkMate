@@ -14,11 +14,12 @@
 /* ── Intro screen ───────────────────────────────────────── */
 .screen-intro {
   background-color: var(--bg);
-  justify-content: center; align-items: center;
+  justify-content: flex-start; align-items: center;
   overflow-y: auto; overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding-top: calc(1.5rem + var(--safe-top));
-  padding-bottom: calc(1.5rem + var(--safe-bottom));
+  /* bottom padding reserves room for the ticker so nothing overlaps it */
+  padding-top: calc(var(--space-8) + var(--safe-top));
+  padding-bottom: calc(var(--space-8) + var(--safe-bottom));
 }
 
 /* Radial glow behind content */
@@ -53,13 +54,13 @@
 /* Footer sound button */
 .intro-footer-links {
   position: absolute;
-  top: calc(1rem + var(--safe-top));
-  right: calc(1rem + var(--safe-right));
+  top: calc(var(--space-4) + var(--safe-top));
+  right: calc(var(--space-4) + var(--safe-right));
   z-index: 2;
 }
 
 .icon-btn {
-  width: 36px; height: 36px;
+  width: 44px; height: 44px;
   display: flex; align-items: center; justify-content: center;
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
@@ -70,50 +71,54 @@
 
 .icon-btn:hover { color: var(--text-2); border-color: var(--border-hover); }
 
-/* Content card */
+/* Content column
+   Spacing follows an 8px scale. Related items sit close (8-16px), distinct
+   groups are separated by 32-48px (proximity + common-region principles). */
 .intro-content {
   position: relative; z-index: 2;
   text-align: center;
-  padding: var(--space-6) var(--space-5);
   display: flex; flex-direction: column;
-  align-items: center; gap: var(--space-5);
-  max-width: 560px; width: 100%; margin: 0 auto;
+  align-items: center;
+  gap: var(--space-7);
+  width: 100%; max-width: 480px;
+  margin: auto; /* centres when there is room, scrolls safely when not */
+  padding: var(--space-6) var(--space-5);
 }
 
-/* Brand mark at top */
-.intro-brand {
-  display: flex; align-items: center; gap: 0.6rem;
-  margin-bottom: -0.5rem;
-}
-
-.intro-brand-mark {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  color: var(--text-2); line-height: 1;
-}
-
-.intro-brand-name {
-  font-family: var(--font-display);
-  font-style: italic; font-weight: 300;
-  font-size: 0.85rem; color: var(--text);
-  letter-spacing: -0.01em;
+/* Heading group: eyebrow, title, subtitle */
+.intro-head {
+  display: flex; flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
 }
 
 .intro-eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.3em;
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.28em;
+  text-indent: 0.28em; /* optically re-centres tracked text */
   text-transform: uppercase;
   color: var(--text-3);
 }
 
 .intro-title {
+  display: flex; flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
   font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(2.8rem, 10vw, 5rem);
-  line-height: 1;
+  font-weight: 400;
+  font-size: clamp(3rem, 11vw, 4.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   color: var(--text);
-  letter-spacing: -0.03em;
+}
+
+.intro-title-mark {
+  font-size: 0.55em;
+  line-height: 1;
+  color: var(--text-3);
 }
 
 .intro-title em {
@@ -123,87 +128,103 @@
 
 .intro-sub {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 300;
+  line-height: 1.7;
   color: var(--text-2);
-  line-height: 1.75;
-  max-width: 380px;
+  max-width: 34ch;
+  margin-top: var(--space-2);
+  text-wrap: balance;
 }
 
-/* Meta pills */
+/* Meta chips */
 .intro-meta {
-  display: flex; align-items: center;
-  gap: 0.5rem; flex-wrap: wrap; justify-content: center;
+  list-style: none;
+  display: flex; flex-wrap: wrap;
+  justify-content: center; align-items: center;
+  gap: var(--space-2) var(--space-3);
 }
 
 .meta-pill {
   font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.14em;
+  font-size: 0.68rem;
+  line-height: 1;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 3px 8px;
+  white-space: nowrap;
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   color: var(--text-3);
 }
 
-.meta-dot {
-  width: 3px; height: 3px; border-radius: 50%;
-  background: var(--text-3); opacity: 0.4;
-}
-
-/* CTA buttons */
+/* Actions: primary dominates, secondary recedes */
 .intro-actions {
   display: flex; flex-direction: column;
-  gap: 0.5rem; width: 100%; max-width: 300px;
+  gap: var(--space-3);
+  width: 100%; max-width: 320px;
+}
+
+.btn-start,
+.btn-daily {
+  appearance: none;
+  display: flex; align-items: center; justify-content: center;
+  width: 100%;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-card);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease),
+              border-color 0.3s var(--ease), transform 0.2s var(--ease);
 }
 
 .btn-start {
-  appearance: none;
+  min-height: 52px;
   border: 1px solid var(--accent);
   background: var(--accent-dim);
   color: var(--text);
-  width: 100%; min-height: 50px;
-  padding: 0.85rem 1.4rem;
-  border-radius: var(--radius-card);
-  font-family: var(--font-body);
-  font-size: 0.92rem;
-  letter-spacing: 0.02em;
-  transition: background 0.3s var(--ease), color 0.3s var(--ease), transform 0.2s var(--ease);
+  font-weight: 400;
 }
 
 .btn-start:hover { background: var(--accent); color: var(--bg); }
-.btn-start:active { transform: scale(0.98); }
 
 .btn-daily {
-  appearance: none;
+  min-height: 48px;
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-2);
-  width: 100%; min-height: 46px;
-  padding: 0.75rem 1.4rem;
-  border-radius: var(--radius-card);
-  font-family: var(--font-body);
-  font-size: 0.92rem;
   font-weight: 300;
-  transition: border-color 0.3s var(--ease), color 0.3s var(--ease), transform 0.2s var(--ease);
 }
 
 .btn-daily:hover { border-color: var(--border-hover); color: var(--text); }
+
+.btn-start:active,
 .btn-daily:active { transform: scale(0.98); }
 
+.btn-start:focus-visible,
+.btn-daily:focus-visible,
+.icon-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .intro-scroll-hint {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
   color: var(--text-3);
-  opacity: 0.5;
+  max-width: 30ch;
+  text-wrap: balance;
 }
 
 /* Scrolling ticker at bottom */
 .intro-ticker {
   position: absolute;
-  bottom: calc(0.75rem + var(--safe-bottom));
+  bottom: calc(var(--space-4) + var(--safe-bottom));
   left: 0; right: 0;
   overflow: hidden;
   pointer-events: none;
@@ -217,11 +238,11 @@
 
 .ticker-track span {
   font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-size: 0.65rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-3);
-  opacity: 0.35;
+  opacity: 0.45;
 }
 
 @keyframes tickerScroll {
@@ -235,3 +256,13 @@
 }
 
 .intro-content { animation: fadeUp 0.9s var(--ease-liturgy) both; }
+
+/* Short viewports (landscape phones): tighten rhythm so everything stays reachable */
+@media (max-height: 640px) {
+  .intro-content { gap: var(--space-5); }
+  .intro-head { gap: var(--space-3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-piece, .ticker-track, .intro-content { animation: none; }
+}

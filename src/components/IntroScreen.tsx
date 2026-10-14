@@ -33,18 +33,27 @@ export function IntroScreen({ engine, soundEnabled, hidden }: IntroScreenProps) 
       </div>
 
       <div className="intro-content">
-        <div className="intro-eyebrow">Woodland Chess</div>
-        <h1 className="intro-title">
-          ♜ Check<em>mate</em>
-        </h1>
-        <p className="intro-sub">Twelve classic mating patterns, drawn from the history of the game. Checkmate in two.</p>
-        <div className="intro-meta">
-          <span className="meta-pill">12 Puzzles</span>
-          <span className="meta-dot" />
-          <span className="meta-pill">Classic Patterns</span>
-          <span className="meta-dot" />
-          <span className="meta-pill">Checkmate in 2</span>
-        </div>
+        <header className="intro-head">
+          <p className="intro-eyebrow">Woodland Chess</p>
+          <h1 className="intro-title">
+            <span className="intro-title-mark" aria-hidden="true">
+              &#9820;
+            </span>
+            <span className="intro-title-word">
+              Check<em>mate</em>
+            </span>
+          </h1>
+          <p className="intro-sub">
+            Twelve classic mating patterns, drawn from the history of the game. Checkmate in two.
+          </p>
+        </header>
+
+        <ul className="intro-meta" aria-label="Game overview">
+          <li className="meta-pill">12 Puzzles</li>
+          <li className="meta-pill">Classic Patterns</li>
+          <li className="meta-pill">Mate in 2</li>
+        </ul>
+
         <div className="intro-actions">
           <button type="button" className="btn-start" onClick={() => engine.startRun()}>
             Begin Playing
@@ -53,7 +62,8 @@ export function IntroScreen({ engine, soundEnabled, hidden }: IntroScreenProps) 
             Daily Challenge
           </button>
         </div>
-        <div className="intro-scroll-hint">a single position. a forced line. no room to improvise.</div>
+
+        <p className="intro-scroll-hint">A single position. A forced line. No room to improvise.</p>
       </div>
 
       <div className="intro-ticker" aria-hidden="true">
