@@ -122,4 +122,26 @@
   --space-7: 48px;
   --space-8: 64px;
   --space-9: 96px;
+
+  /* ---- Compatibility aliases ------------------------------------------------
+     intro/game/win stylesheets reference these short names. They were never
+     defined, so colors, easing and safe-area insets silently fell back to
+     browser defaults. Defined once here, mapped onto the canonical tokens. */
+  --bg: var(--bg-primary);
+  --bg-2: var(--bg-secondary);
+  --text: var(--text-primary);
+  --text-2: #a39a89;
+  --text-3: #7d766a;
+  --border: var(--border-hairline);
+  --border-hover: var(--border-strong);
+  --accent-bright: #b9cbc4;
+  --radius-card: var(--radius-md);
+  --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.5);
+  --ease: var(--ease-still);
+  --ease-liturgy: var(--ease-still);
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
 }
