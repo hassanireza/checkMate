@@ -19,6 +19,13 @@ describe('ScoreService', () => {
   });
 });
 
+describe('Puzzle catalog', () => {
+  it('contains exactly 100 puzzles with unique ids', () => {
+    expect(PUZZLES.length).toBe(100);
+    expect(new Set(PUZZLES.map((p) => p.id)).size).toBe(100);
+  });
+});
+
 describe('PuzzleRepository', () => {
   it('produces the same Daily Challenge puzzle for the same calendar date', () => {
     const repo = new PuzzleRepository(PUZZLES);

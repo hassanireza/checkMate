@@ -386,7 +386,8 @@ export class GameEngine {
 
     soundService.playCheckmate();
 
-    const allPuzzlesComplete = this.mode === 'run' && this.index >= this.puzzles.length - 1;
+    // Every puzzle in the run must actually be solved, not merely reached.
+    const allPuzzlesComplete = this.mode === 'run' && this.solved >= this.puzzles.length;
     let dailyStreak = progress.dailyChallengeStreak;
     if (this.mode === 'daily') {
       const today = new Date().toISOString().slice(0, 10);
@@ -403,6 +404,7 @@ export class GameEngine {
         allPuzzlesComplete,
         dailyChallengeStreak: dailyStreak,
         isFirstSolveEver,
+        totalSolved: progress.totalSolved + 1,
       },
       progress,
     );
