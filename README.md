@@ -11,7 +11,7 @@
 [![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
 
 **A monochrome, editorial chess puzzle collection.**
-Twelve historic mating patterns. Checkmate in two. No room to improvise.
+One hundred mating puzzles. Checkmate in two. No room to improvise.
 
 [Live Demo](#deployment) &middot; [Design System](DESIGN_SYSTEM.md) &middot; [Getting Started](#getting-started) &middot; [Architecture](#architecture)
 
@@ -40,10 +40,10 @@ eight-chapter narrative behind it live in **[DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)
 
 | | |
 |---|---|
-| **Twelve verified puzzles** | Every position and solution line is checked against the live rules engine by an automated script, not hand-typed and hoped for. |
+| **One hundred verified puzzles** | Every position and solution line is checked against the live rules engine by an automated script, not hand-typed and hoped for. |
 | **Daily Challenge** | A single deterministic puzzle per calendar date, identical for every player, no server required. |
 | **Scoring and streaks** | Points scale with difficulty and solve speed; a hint halves the reward rather than blocking it. |
-| **Achievements** | Six unlockable milestones tracked across sessions. |
+| **Achievements** | Ten unlockable milestones tracked across sessions, from your first solve to all 100 puzzles. |
 | **Local persistence** | Best streak, best score, fastest solve, and unlocked achievements survive a page reload via `localStorage`, with safe fallbacks if storage is unavailable. |
 | **Synthesized sound** | Every effect is generated at runtime with the WebAudio API. No audio files to host or license. |
 | **PGN export** | Download a solved line as a standards-shaped `.pgn` file. |
@@ -59,7 +59,7 @@ methods). Nothing in `engine/` or `core/` imports React.
 
 ```mermaid
 flowchart TB
-    subgraph Rules["src/engine — chess rules, framework-agnostic"]
+    subgraph Rules["src/engine: chess rules, framework-agnostic"]
         Board["Board\nFEN parsing, cloning, coordinates"]
         MoveGen["MoveGenerator\npseudo-legal moves, check detection"]
         ChessEngine["ChessEngine\npublic rules facade"]
@@ -67,7 +67,7 @@ flowchart TB
         MoveGen --> ChessEngine
     end
 
-    subgraph Core["src/core — game orchestration, framework-agnostic"]
+    subgraph Core["src/core: game orchestration, framework-agnostic"]
         GameEngine["GameEngine\nthe controller class"]
         PuzzleRepo["PuzzleRepository\nordering + Daily Challenge seed"]
         ScoreSvc["ScoreService"]
@@ -77,7 +77,7 @@ flowchart TB
         PgnExp["PgnExporter"]
     end
 
-    subgraph UI["src/components + src/hooks — React, presentation only"]
+    subgraph UI["src/components + src/hooks: React, presentation only"]
         Hook["useGameEngine\nuseSyncExternalStore bridge"]
         App["App"]
         Intro["IntroScreen"]
