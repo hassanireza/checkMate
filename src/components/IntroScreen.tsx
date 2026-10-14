@@ -1,4 +1,5 @@
 import type { GameEngine } from '../core/GameEngine';
+import { PUZZLES } from '../data/puzzles';
 import { IconSound } from './icons';
 
 const TICKER_ITEMS = [
@@ -44,12 +45,12 @@ export function IntroScreen({ engine, soundEnabled, hidden }: IntroScreenProps) 
             </span>
           </h1>
           <p className="intro-sub">
-            Twelve classic mating patterns, drawn from the history of the game. Checkmate in two.
+            One hundred mating puzzles, from classic patterns to quiet killers. Checkmate in two.
           </p>
         </header>
 
         <ul className="intro-meta" aria-label="Game overview">
-          <li className="meta-pill">12 Puzzles</li>
+          <li className="meta-pill">{PUZZLES.length} Puzzles</li>
           <li className="meta-pill">Classic Patterns</li>
           <li className="meta-pill">Mate in 2</li>
         </ul>

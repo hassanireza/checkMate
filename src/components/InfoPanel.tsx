@@ -26,7 +26,7 @@ export function InfoPanel({ engine, snapshot }: InfoPanelProps) {
       <div className={`game-badge ${puzzle.difficulty}`}>
         {puzzle.difficulty.charAt(0).toUpperCase() + puzzle.difficulty.slice(1)}
       </div>
-      <div className="puzzle-year">{puzzle.year}</div>
+      {puzzle.year && <div className="puzzle-year">{puzzle.year}</div>}
       <h2 className="puzzle-title">{puzzle.title}</h2>
       <div className="puzzle-subtitle">{puzzle.subtitle}</div>
       <p className="puzzle-desc">{puzzle.desc}</p>
@@ -85,7 +85,7 @@ export function InfoPanel({ engine, snapshot }: InfoPanelProps) {
         </div>
         <div className="stat-sep" />
         <div className="stat-item">
-          <span className="stat-n">{snapshot.bestStreak || '—'}</span>
+          <span className="stat-n">{snapshot.bestStreak}</span>
           <span className="stat-l">Best</span>
         </div>
       </div>

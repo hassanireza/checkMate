@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * SUBMERGED CATHEDRAL — Design Token System
+ * SUBMERGED CATHEDRAL: Design Token System
  * ----------------------------------------------------------------------------
  * Art direction: baroque religious portraiture stripped to monochrome,
  * Scandinavian ritual minimalism, museum conservation photography, deep-sea
@@ -15,19 +15,19 @@
  */
 
 :root {
-  /* ---- Chapter I: The Arrival — absolute darkness, only the face exists --- */
+  /* ---- Chapter I: The Arrival: absolute darkness, only the face exists --- */
   --abyss-000: #030405;
   --abyss-050: #06080a;
   --abyss-100: #0a0d10;
   --abyss-150: #0f1316;
   --abyss-200: #151a1d;
 
-  /* ---- Chapter II: Initiation — black water, wet skin, no movement -------- */
+  /* ---- Chapter II: Initiation: black water, wet skin, no movement -------- */
   --water-100: #101a1c;
   --water-200: #17262a;
   --water-300: #223638;
 
-  /* ---- Chapter IV: Tithe — skin, salt, scars, wet leather ------------------ */
+  /* ---- Chapter IV: Tithe: skin, salt, scars, wet leather ------------------ */
   --skin-pale: #e7ded0;
   --skin-mid: #b9ac98;
   --salt: #f1ede2;
@@ -92,7 +92,7 @@
   --shadow-close: 0 8px 28px rgba(0, 0, 0, 0.4);
   --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 
-  /* ---- Typography — baroque display, ritual body, conservation-label mono - */
+  /* ---- Typography: baroque display, ritual body, conservation-label mono - */
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Jost', 'DM Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -101,7 +101,7 @@
   --tracking-mid: 0.16em;
   --tracking-tight: 0.02em;
 
-  /* ---- Motion — shallow, almost static. Nothing bounces. ------------------- */
+  /* ---- Motion: shallow, almost static. Nothing bounces. ------------------- */
   --ease-still: cubic-bezier(0.22, 0.61, 0.36, 1);
   --duration-slow: 1400ms;
   --duration-med: 700ms;
