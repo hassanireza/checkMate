@@ -4,6 +4,7 @@ const STORAGE_KEY = 'checkmate.progress.v1';
 
 const DEFAULT_PROGRESS: PlayerProgress = {
   totalSolved: 0,
+  solvedPuzzleIds: [],
   bestStreak: 0,
   bestScore: 0,
   fastestSolveMs: null,
@@ -31,7 +32,9 @@ export class StorageService {
         return this.cache;
       }
       const parsed = JSON.parse(raw) as Partial<PlayerProgress>;
-      this.cache = { ...DEFAULT_PROGRESS, ...parsed };
+      const merged = { ...DEFAULT_PROGRESS, ...parsed };
+      if (!Array.isArray(merged.solvedPuzzleIds)) merged.solvedPuzzleIds = [];
+      this.cache = merged;
       return this.cache;
     } catch {
       this.cache = { ...DEFAULT_PROGRESS };

@@ -64,6 +64,8 @@ export interface Achievement {
 
 export interface PlayerProgress {
   totalSolved: number;
+  /** Distinct puzzle ids ever solved. Drives the milestone achievements. */
+  solvedPuzzleIds: number[];
   bestStreak: number;
   bestScore: number;
   fastestSolveMs: number | null;
