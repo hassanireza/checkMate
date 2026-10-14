@@ -175,7 +175,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at center, rgba(3, 4, 5, 0.2) 0%, rgba(3, 4, 5, 0.86) 100%);
+  /* must sit above .piece-svg (z-index: 2) so pieces never draw over the text */
+  z-index: 10;
+  background: rgba(3, 4, 5, 0.72);
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--duration-slow) var(--ease-still);
@@ -186,6 +188,9 @@
 }
 
 .mate-overlay-inner {
+  width: 100%;
+  padding: var(--space-5) var(--space-4);
+  background: linear-gradient(to right, transparent, rgba(3, 4, 5, 0.92) 18%, rgba(3, 4, 5, 0.92) 82%, transparent);
   text-align: center;
   transform: translateY(6px);
   opacity: 0;
